@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SocialMedia.Models
 {
-    public class Posts
+    public class Post
     {
         [Key]
         public int Id { get; set; }
