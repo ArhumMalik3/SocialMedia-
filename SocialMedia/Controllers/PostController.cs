@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SocialMedia.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,14 @@ namespace SocialMedia.Controllers
 {
     public class PostController : Controller
     {
+
+        private readonly ApplicationDbContext _context;
+
+        public PostController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
         // GET: PostController
         public ActionResult Index()
         {
