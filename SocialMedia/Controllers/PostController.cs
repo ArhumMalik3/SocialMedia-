@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SocialMedia.Data;
+using SocialMedia.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,14 +34,18 @@ namespace SocialMedia.Controllers
         // GET: PostController/Create
         public ActionResult Create()
         {
-            return View();
+            Post post = new Post();
+            return View(post);
         }
 
         // POST: PostController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Post post)
         {
+
+            _context.Add(post);
+            _context.SaveChanges();
             try
             {
                 return RedirectToAction(nameof(Index));
