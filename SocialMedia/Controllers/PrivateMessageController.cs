@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SocialMedia.Data;
+using SocialMedia.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +9,16 @@ using System.Threading.Tasks;
 
 namespace SocialMedia.Controllers
 {
+
+   
     public class PrivateMessageController : Controller
     {
+        private readonly ApplicationDbContext _context;
+
+        public PrivateMessageController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
         // GET: PrivateMessageController
         public ActionResult Index()
         {
@@ -58,14 +68,17 @@ namespace SocialMedia.Controllers
         // GET: PrivateMessageController/Create
         public ActionResult Create()
         {
-            return View();
+            PrivateMessage privateMessage = new PrivateMessage();
+            return View(privateMessage);
         }
 
         // POST: PrivateMessageController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(PrivateMessage privateMessage)
         {
+            _context.Add(privateMessage);
+            
             try
             {
                 return RedirectToAction(nameof(Index));
